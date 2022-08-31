@@ -1,17 +1,23 @@
 import React from "react";
 import "./index.css";
 import axios from "axios";
+import { Link, link } from "react-router-dom";
 function MainPage() {
   const [products, setProducts] = React.useState([]);
+  React.useEffect(function () {
+    axios
+      .get(
+        "https://22780b2d-5ecc-4613-82fa-f58fa9a1502f.mock.pstmn.io/products"
+      )
+      .then(function (result) {
+        const products = result.data.products;
+        setProducts(products);
+      })
+      .catch(function (error) {
+        console.log("error :", error);
+      });
+  }, []);
 
-  axios
-    .get("https://de81afe5-a239-4c3c-84cf-8807f4e4139b.mock.pstmn.io/products")
-    .then(function (result) {
-      const products = result.data.products;
-    })
-    .catch(function (error) {
-      console.log("error :", error);
-    });
   return (
     <div>
       <div id="header">
@@ -25,22 +31,28 @@ function MainPage() {
         </div>
         <h1>판매되는 상품들</h1>
         <div id="product-list">
-          <div className="product-card">
-            <div>
-              <img
-                className="product-img"
-                src="/images/products/keyboard1.jpg"
-              />
-            </div>
-            <div className="product-contents">
-              <span className="product-name">키보드</span>
-              <span className="product-price">50000원</span>
-              <div className="product-seller">
-                <img className="product-avatar" src="images/icons/avatar.png" />
-                <span>그랩</span>
+          {products.map(function (product, index) {
+            return (
+              <div className="product-card">
+                <Link to={`/products/` + index} className="product-link">
+                  <div>
+                    <img className="product-img" src={product.imgUrl} />
+                  </div>
+                  <div className="product-contents">
+                    <span className="product-name">{product.name}</span>
+                    <span className="product-price">{product.price}원</span>
+                    <div className="product-seller">
+                      <img
+                        className="product-avatar"
+                        src="images/icons/avatar.png"
+                      />
+                      <span>{product.seller}</span>
+                    </div>
+                  </div>
+                </Link>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
       <div id="footer"></div>
