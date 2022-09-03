@@ -39,3 +39,13 @@
   margin-top: 16px;
   border-radius: 15px;
 }
+#upload-img {
+  width: 200px;
+  height: 200px;
+  margin-left: 20px;
+  object-fit: contain;
+}
+
+#description {
+  margin-top: 10px;
+}
