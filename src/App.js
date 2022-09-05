@@ -22,13 +22,13 @@ function App() {
             }}
             icon={<DownloadOutlined />}
           >
-            상품업로드
+            상품 업로드
           </Button>
         </div>
       </div>
       <div id="body">
         <Switch>
-          <Route exact={true} path={"/"}>
+          <Route exact={true} path="/">
             <MainPageComponent />
           </Route>
           <Route exact={true} path="/products/:id">
